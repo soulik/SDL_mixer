@@ -11,7 +11,9 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/nasm.cmake)
 
 # Ogg Vorbis
 
-add_subdirectory(../libogg-1.3.1 "${CMAKE_CURRENT_BINARY_DIR}/libogg")
+if (NOT TARGET OGG)
+	add_subdirectory(../libogg-1.3.1 "${CMAKE_CURRENT_BINARY_DIR}/libogg")
+endif()
 include_directories(../libogg-1.3.1/include)
 
 add_definitions(-DVERSION="1.2.0" -DFLAC_API_EXPORTS)

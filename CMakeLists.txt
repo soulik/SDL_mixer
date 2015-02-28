@@ -11,6 +11,7 @@ find_package(SDL2 REQUIRED)
 
 set(SDL2_LIBRARIES "${SDL2_LIBRARY}")
 set(SDL2_INCLUDE_DIRS "${SDL2_INCLUDE_DIR}")
+set(SDLMIXER_LIBRARIES "")
 
 include_directories(${SDL2_INCLUDE_DIRS})
 
@@ -40,6 +41,7 @@ endif()
 if(SDLMIXER_SUPPORT_MOD_MUSIC)
 	add_definitions(-DMOD_MUSIC)
 endif()
+
 if(SDLMIXER_SUPPORT_MID_MUSIC)
 	add_definitions(-DMID_MUSIC)
 	if(SDLMIXER_SUPPORT_MID_MUSIC_TIMIDITY)
@@ -54,21 +56,29 @@ if(SDLMIXER_SUPPORT_MID_MUSIC)
 		include_directories("${SDLMIXER_SOURCE_DIR}/native_midi")
 	endif()
 endif()
+
 if(SDLMIXER_SUPPORT_OGG_MUSIC)
 	add_definitions(-DOGG_MUSIC)
-	add_subdirectory(external/libogg-1.3.1)
+	if (NOT TARGET OGG)
+		add_subdirectory(external/libogg-1.3.1)
+	endif()
 	include_directories(external/libogg-1.3.1/include)
+	list(APPEND SDLMIXER_LIBRARIES OGG)
 endif()
+
 if(SDLMIXER_SUPPORT_MP3_MUSIC)
 	add_definitions(-DMP3_MUSIC)
 endif()
+
 if(SDLMIXER_SUPPORT_MP3_MAD_MUSIC)
 	add_definitions(-DMP3_MAD_MUSIC)
 endif()
+
 if(SDLMIXER_SUPPORT_FLAC_MUSIC)
 	add_definitions(-DFLAC_MUSIC)
 	add_subdirectory(external/flac-1.2.1)
 	include_directories(external/flac-1.2.1/include)
+	list(APPEND SDLMIXER_LIBRARIES FLAC)
 endif()
 
 set(SDLMIXER_SRC
@@ -95,8 +105,6 @@ set(SDLMIXER_SRC
 	music_mod.c
 	music_modplug.c
 	music_ogg.c
-	playmus.c
-	playwave.c
 	wavestream.c
 )
 
@@ -118,7 +126,7 @@ set_target_properties(SDLMIXER
 )
 
 target_link_libraries (SDLMIXER
-	${SDL2_LIBRARIES}
+	${SDL2_LIBRARIES} ${SDLMIXER_LIBRARIES}
 )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY build)
