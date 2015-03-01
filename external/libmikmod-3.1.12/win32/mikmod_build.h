@@ -83,6 +83,22 @@ MIKMODAPI extern long MikMod_GetVersion(void);
 typedef char CHAR;
 #endif
 
+/*
+ *  =========== Win32 MSVC specific definitions
+ */
+
+#ifdef _MSC_VER
+
+#include <fcntl.h>
+
+#define unlink	_unlink
+#define stricmp	_stricmp
+#define strdup	_strdup
+#define O_RDWR	_O_RDWR
+#define O_TRUNC	_O_TRUNC
+#define O_CREAT	_O_CREAT
+
+#endif
 
 
 #if defined(__arch64__) || defined(__alpha)
