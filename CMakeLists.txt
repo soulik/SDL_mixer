@@ -55,6 +55,24 @@ if(SDLMIXER_SUPPORT_MID_MUSIC)
 	if(SDLMIXER_SUPPORT_MID_MUSIC_TIMIDITY)
 		add_definitions(-DUSE_TIMIDITY_MIDI)
 		include_directories("${SDLMIXER_SOURCE_DIR}/timidity")
+		set(SDLMIXER_TIMIDITY_SRC
+			timidity/common.c
+			timidity/ctrlmode.c
+			timidity/filter.c
+			timidity/instrum.c
+			timidity/mix.c
+			timidity/output.c
+			timidity/playmidi.c
+			timidity/readmidi.c
+			timidity/resample.c
+			timidity/sdl_a.c
+			timidity/sdl_c.c
+			timidity/tables.c
+			timidity/timidity.c
+		)
+		
+		list(APPEND SDLMIXER_ADDITIONAL_SRC ${SDLMIXER_TIMIDITY_SRC})
+
 	endif()
 	if(SDLMIXER_SUPPORT_MID_MUSIC_FLUIDSYNTH)
 		add_definitions(-DUSE_FLUIDSYNTH_MIDI)
@@ -62,6 +80,19 @@ if(SDLMIXER_SUPPORT_MID_MUSIC)
 	if(SDLMIXER_SUPPORT_MID_MUSIC_NATIVE)
 		add_definitions(-DUSE_NATIVE_MIDI)
 		include_directories("${SDLMIXER_SOURCE_DIR}/native_midi")
+		set(SDLMIXER_NATIVEMIDI_SRC
+			native_midi/native_midi_common.c
+		)
+		if (WIN32)
+			list(APPEND SDLMIXER_NATIVEMIDI_SRC native_midi/native_midi_win32.c)
+			list(APPEND SDLMIXER_LIBRARIES winmm.lib)
+		elseif(UNIX)
+			if (APPLE)
+				list(APPEND SDLMIXER_NATIVEMIDI_SRC native_midi/native_midi_macosx.c)
+			endif()
+		endif()
+		
+		list(APPEND SDLMIXER_ADDITIONAL_SRC ${SDLMIXER_NATIVEMIDI_SRC})
 	endif()
 endif()
 
@@ -125,7 +156,7 @@ set(SDLMIXER_SRC
 )
 
 set(SDLMIXER_SOURCES
-	${SDLMIXER_SRC}
+	${SDLMIXER_SRC} ${SDLMIXER_ADDITIONAL_SRC}
 )
 
 include_directories(./)
