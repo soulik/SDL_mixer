@@ -47,6 +47,8 @@ inline void ProcessPlugins(int n) {}
 #define strcasecmp(a,b) strcmp(a,b)
 #define strnicmp(a,b,c)		strncasecmp(a,b,c)
 #define HAVE_SINF 1
+#define putenv	_putenv
+#define strdup	_strdup
 
 #else
 
