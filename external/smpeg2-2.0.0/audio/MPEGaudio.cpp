@@ -25,6 +25,7 @@
 
 #include "MPEGaudio.h"
 #include "MPEGstream.h"
+#include <memory.h>
 
 MPEGaudio:: MPEGaudio(MPEGstream *stream, bool initSDL)
     : sdl_audio(initSDL)

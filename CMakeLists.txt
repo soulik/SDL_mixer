@@ -81,6 +81,9 @@ endif()
 
 if(SDLMIXER_SUPPORT_MP3_MUSIC)
 	add_definitions(-DMP3_MUSIC)
+	add_subdirectory(external/smpeg2-2.0.0)
+	include_directories(external/smpeg2-2.0.0)
+	list(APPEND SDLMIXER_LIBRARIES SMPEG)
 endif()
 
 if(SDLMIXER_SUPPORT_MP3_MAD_MUSIC)
