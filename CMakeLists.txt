@@ -3,6 +3,7 @@ project (SDLMIXER)
 
 list(APPEND CMAKE_MODULE_PATH "${SDLMIXER_SOURCE_DIR}/cmake")
 
+include(CheckSymbolExists)
 include(CheckLibraryExists)
 include(CheckIncludeFiles)
 include(CheckIncludeFile)

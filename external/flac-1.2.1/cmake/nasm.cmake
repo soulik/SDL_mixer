@@ -1,10 +1,12 @@
 ﻿if(WIN32)
-	set(CMAKE_ASM_MASM_COMPILER nasm.exe)
+	set(NASM_COMPILER_PATH "nasm.exe" CACHE FILEPATH "NASM assembler program path")
 	set(NASM_OBJ_FORMAT win32)
 else()
-	set(CMAKE_ASM_MASM_COMPILER nasm)
+	set(NASM_COMPILER_PATH "nasm" CACHE FILEPATH "NASM assembler program path")
 	set(NASM_OBJ_FORMAT elf32)
 endif()
+
+set(CMAKE_ASM_MASM_COMPILER ${NASM_COMPILER_PATH})
 
 function(nasm_command SRC_LIST_NAME OUT_LIST_NAME)
 	set(ASM_OUT_LIST "")
