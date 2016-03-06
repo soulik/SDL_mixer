@@ -3,6 +3,7 @@ cmake_minimum_required (VERSION 3.1.0)
 project (LIBMAD)
 
 list(APPEND CMAKE_MODULE_PATH "${LIBMAD_SOURCE_DIR}/cmake")
+option(LIBMAD_AMD64 "Enable building amd64 assembly implementation")
 
 include(CheckLibraryExists)
 include(CheckIncludeFiles)

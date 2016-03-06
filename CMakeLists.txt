@@ -134,6 +134,17 @@ endif()
 
 if(SDLMIXER_SUPPORT_MP3_MAD_MUSIC)
 	add_definitions(-DMP3_MAD_MUSIC)
+
+	if (("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "x86_64|AMD64"))
+		add_definitions(-DFPM_64BIT)
+	elseif (("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "x86"))
+		add_definitions(-DFPM_INTEL)
+	elseif (("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "arm"))
+		add_definitions(-DFPM_ARM)
+	else()
+		message("Unknown architecture: ${CMAKE_SYSTEM_PROCESSOR}")
+	endif()
+
 	add_subdirectory(external/libmad-0.15.1b)
 	include_directories(external/libmad-0.15.1b)
 	list(APPEND SDLMIXER_LIBRARIES LIBMAD)
