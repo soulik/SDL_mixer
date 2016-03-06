@@ -141,8 +141,8 @@ endif()
 
 if(SDLMIXER_SUPPORT_FLAC_MUSIC)
 	add_definitions(-DFLAC_MUSIC)
-	add_subdirectory(external/flac-1.2.1)
-	include_directories(external/flac-1.2.1/include)
+	add_subdirectory(external/flac-1.3.1)
+	include_directories(external/flac-1.3.1/include)
 	list(APPEND SDLMIXER_LIBRARIES FLAC)
 endif()
 
