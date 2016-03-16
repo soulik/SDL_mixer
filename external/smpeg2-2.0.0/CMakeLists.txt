@@ -10,11 +10,7 @@ set(CMAKE_MODULE_PATH "${SMPEG_SOURCE_DIR}/cmake")
 
 find_package(SDL2 REQUIRED)
 
-set(SDL2_LIBRARIES "${SDL2_LIBRARY}")
-set(SDL2_INCLUDE_DIRS "${SDL2_INCLUDE_DIR}")
-set(SDLMIXER_LIBRARIES "")
-
-include_directories(${SDL2_INCLUDE_DIRS})
+include_directories(${SDL2_INCLUDE_DIR})
 
 set(SMPEG_AUDIO_SRC
 	audio/MPEGaudio.cpp
@@ -83,7 +79,7 @@ if(WIN32)
 endif()
 
 target_link_libraries (SMPEG
-	${SDL2_LIBRARIES}
+	${SDL2_LIBRARY}
 )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY build)
